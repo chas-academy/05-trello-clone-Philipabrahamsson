@@ -1,4 +1,8 @@
 import $ from 'jquery';
+import dialog from 'jquery-ui/ui/widgets/dialog';
+import tabs from 'jquery-ui/ui/widgets/tabs';
+import 'jquery-ui/themes/base/all.css';
+
 
 require('webpack-jquery-ui');
 import '../css/styles.css';
@@ -20,6 +24,7 @@ const jtrello = (function() {
   function captureDOMEls() {
     DOM.$board = $('.board');
     DOM.$listDialog = $('#list-creation-dialog');
+    DOM.$tabsHolder = $('#tabs');
     DOM.$columns = $('.column');
     DOM.$lists = $('.list');
     DOM.$cards = $('.card');
@@ -30,10 +35,16 @@ const jtrello = (function() {
     DOM.$newCardForm = $('form.new-card');
     DOM.$deleteCardButton = $('.card > button.delete');
   }
+  function createTabs() {
+    $(DOM.$tabsHolder).tabs();
+  }
 
   function createTabs() {}
-  function createDialogs() {}
-
+  function createDialogs() {
+    dialog({ autoOpen: false }, DOM.$listDialog);
+  }
+  
+  
   /*
   *  Denna metod kommer nyttja variabeln DOM för att binda eventlyssnare till
   *  createList, deleteList, createCard och deleteCard etc.
@@ -49,30 +60,42 @@ const jtrello = (function() {
   /* ============== Metoder för att hantera listor nedan ============== */
   function createList() {
     event.preventDefault();
-    console.log("This should create a new list");
-  }
+    dialog('open', DOM.$listDialog);
+  };
 
   function deleteList() {
-    console.log("This should delete the list you clicked on");
-  }
+    $(this).closest('.list').remove();
+    };
+  
+  
 
   /* =========== Metoder för att hantera kort i listor nedan =========== */
   function createCard(event) {
     event.preventDefault();
-    console.log("This should create a new card");
-  }
+    let addTextToCard = $(this).find('.addText').val();
 
+    $(this).closest('div.list').append($('<li class="card">' + addTextToCard + '<button class="button delete">X</button></li>').on('click', deleteCard)).sortable({
+      connectWith: '.list-cards'
+    });;
+
+    sortCard();
+  };
+// DOM.$deleteCardButton = $('.card > button.delete');
   function deleteCard() {
-      $(this).parent().remove();
+    $(this).closest('.card').remove();
   }; 
-    
-  }
+
+    function sortCard() {
+    $(".list-cards").sortable({
+      connectWith: '.list-cards'
+    });
+  };
 
   // Metod för att rita ut element i DOM:en
   function render() {}
 
   /* =================== Publika metoder nedan ================== */
-
+  
   // Init metod som körs först
   function init() {
     console.log(':::: Initializing JTrello ::::');
@@ -80,10 +103,9 @@ const jtrello = (function() {
     captureDOMEls();
     createTabs();
     createDialogs();
-
     bindEvents();
-  }
-
+    sortCard();
+  };
   // All kod här
 
   return {
