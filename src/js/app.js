@@ -6,6 +6,7 @@ import 'jquery-ui/themes/base/all.css';
 
 require('webpack-jquery-ui');
 import '../css/styles.css';
+import { createDeflate } from 'zlib';
 
 /**
  * jtrello
@@ -40,8 +41,23 @@ const jtrello = (function() {
   }
 
   function createTabs() {}
+
+
   function createDialogs() {
-    dialog({ autoOpen: false }, DOM.$listDialog);
+   dialog({ autoOpen: false }, DOM.$listDialog);
+    
+    $( "#list-creation-dialog" ).dialog({
+  buttons: [
+    {
+      text: "Ok",
+      icon: "ui-icon-heart",
+      click: function() {
+        $( this ).dialog( "close" );
+        console.log('snälla kom hit')
+      }
+    }
+  ]
+});
   }
   
   
@@ -63,6 +79,14 @@ const jtrello = (function() {
     dialog('open', DOM.$listDialog);
   };
 
+
+  function setDate() {
+    $( function() {
+      $( ".datepicker" ).datepicker();
+    } );
+  };
+
+
   function deleteList() {
     $(this).closest('.list').remove();
     };
@@ -76,9 +100,8 @@ const jtrello = (function() {
 
     $(this).closest('div.list').append($('<li class="card">' + addTextToCard + '<button class="button delete">X</button></li>').on('click', deleteCard)).sortable({
       connectWith: '.list-cards'
-    });;
-
-    sortCard();
+    });
+    
   };
 // DOM.$deleteCardButton = $('.card > button.delete');
   function deleteCard() {
@@ -98,13 +121,14 @@ const jtrello = (function() {
   
   // Init metod som körs först
   function init() {
-    console.log(':::: Initializing JTrello ::::');
+    console.log(':::: Initializing JTrello v ::::');
     // Förslag på privata metoder
     captureDOMEls();
     createTabs();
     createDialogs();
     bindEvents();
     sortCard();
+    setDate();
   };
   // All kod här
 
