@@ -1,6 +1,8 @@
 html,
 body {
-  background: #9999ff;
+  background-image: url(../../public/img.jpg);
+  background-color: #30306e;
+  background-repeat: no-repeat;
   margin: 0;
   padding: 30px 0 0;
   font-family: sans-serif;
@@ -189,4 +191,17 @@ input {
   cursor: grabbing;
   box-shadow: -2px 2px 8px rgba(0, 0, 0, 0.3), 0px 0px 1px rgba(0, 0, 0, 0.5);
   transform: rotate(4deg);
+}
+#dialogbutton {
+  padding: 8px 10px;
+  border: 0 none;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.3;
+  flex-direction: flex-end;
+}
+#dialog {
+  background-color: yellow;
+  color: teal;
 }

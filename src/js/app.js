@@ -37,28 +37,27 @@ const jtrello = (function() {
     DOM.$deleteCardButton = $('.card > button.delete');
   }
   function createTabs() {
-    $(DOM.$tabsHolder).tabs();
-  }
-
-  function createTabs() {}
-
-
-  function createDialogs() {
-   dialog({ autoOpen: false }, DOM.$listDialog);
-    
-    $( "#list-creation-dialog" ).dialog({
-  buttons: [
-    {
-      text: "Ok",
-      icon: "ui-icon-heart",
-      click: function() {
-        $( this ).dialog( "close" );
-        console.log('snälla kom hit')
-      }
+      $("#dialog").tabs();
     }
-  ]
-});
-  }
+    
+  function createDialogs() {
+    $( "#dialog" ).dialog({
+      autoOpen: false,
+      show: {
+        effect: "blind",
+        duration: 1000
+      },
+      hide: {
+        effect: "explode",
+        duration: 1000
+      }
+    });
+ 
+    $( "#dialogbutton" ).on( "click", function() {
+      $( "#dialog" ).dialog( "open" );
+    });
+  };
+
   
   
   /*
