@@ -1,110 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>jQuery UI - Trello Clone (yay!)</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>jQuery UI - Trello Clone (yay!)</title>
 </head>
+
 <body>
-    <div class="board">
-        <div class="column">
-            <div class="list">
-                <div class="list-header" id="datepicker">
-                    <p> 
-                        <input type="text" class="datepicker">
-                    </p>  
-                    Todo
-                    <button class="button delete">X</button>
-                </div>
-                <ul class="list-cards">
-                    <li class="card">
-                        Card #1
-                        <button class="button delete">X</button>
-                    </li>
-                    <li class="add-new">
-                        <form class="new-card" action="index.html">
-                            <input type="text" class="addText" name="title" placeholder="Please name the card" />
-                            <button class="button add">Add new card</button>
-                        </form>
-                    </li>
-                </ul>
-            </div>
+  <div class="board">
+    <div class="column">
+      <div class="list">
+        <div class="list-header" id="datepicker">
+          <p>
+            <input type="text" class="datepicker">
+          </p>
+          Todo
+          <button class="button delete">X</button>
         </div>
-        <div class="column">
-            <div class="list">
-                <div class="list-header" id="datepicker">
-                    <p> 
-                        <input type="text" class="datepicker">
-                    </p>
-                    Doing
-                    <button class="button delete">X</button>
-                </div>
-                <ul class="list-cards">
-                    <li class="card">
-                        Card #2
-                        <button class="button delete">X</button>
-                    </li>
-                    <li class="add-new">
-                        <form class="new-card" action="index.html">
-                            <input type="text" class="addText" name="title" placeholder="Please name the card" />
-                            <button class="button add">Add new card</button>
-                        </form>
-                    </li>
-                </ul>
-            </div>
+        <ul class="list-cards">
+          <li class="card">
+            Card #1
+            <button class="button delete">X</button>
+          </li>
+          <li class="add-new">
+            <form class="new-card" action="index.html">
+              <input type="text" class="addText" name="title" placeholder="Please name the card" />
+              <button class="button add">Add new card</button>
+            </form>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="column">
+      <div class="list">
+        <div class="list-header" id="datepicker">
+          <p>
+            <input type="text" class="datepicker">
+          </p>
+          Doing
+          <button class="button delete">X</button>
         </div>
-        <div class="column">
-            <div class="list">
-                <div class="list-header">
-                    <p> 
-                        <input type="text" class="datepicker">
-                    </p>
-                    Done
-                    <button class="button delete">X</button>
-                </div>
-                <ul class="list-cards">
-                    <li class="card">
-                        Card #3
-                        <button class="button delete">X</button>
-                    </li>
-                    <li class="add-new">
-                        <form class="new-card" action="index.html">
-                            <input type="text" class="addText" name="title" placeholder="Please name the card" />
-                            <button class="button add">Add new card</button>
-                        </form>
-                    </li>
-                </ul>
-            </div>
+        <ul class="list-cards">
+          <li class="card">
+            Card #2
+            <button class="button delete">X</button>
+          </li>
+          <li class="add-new">
+            <form class="new-card" action="index.html">
+              <input type="text" class="addText" name="title" placeholder="Please name the card" />
+              <button class="button add">Add new card</button>
+            </form>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="column">
+      <div class="list">
+        <div class="list-header">
+          <p>
+            <input type="text" class="datepicker">
+          </p>
+          Done
+          <button class="button delete">X</button>
         </div>
-        <div class="column">
-            <button id="dialogbutton">Click me, because reasons..</button>
-            <button id="new-list" class="button">Add new list</button>
-        </div>
+        <ul class="list-cards">
+          <li class="card">
+            Card #3
+            <button class="button delete">X</button>
+          </li>
+          <li class="add-new">
+            <form class="new-card" action="index.html">
+              <input type="text" class="addText" name="title" placeholder="Please name the card" />
+              <button class="button add">Add new card</button>
+            </form>
+          </li>
+        </ul>
+      </div>
     </div>
-    
-    <div id="list-creation-dialog" title="Create new list" style="height: 40px">
-        <form> 
-            <input type="text" name="title" placeholder="List title" />
-        </form>
+    <div class="column">
+      <button id="dialogbutton">Change background here</button>
+      <button id="new-list" class="button">Add new list</button>
     </div>
-    </div>
-    <div id="dialog" title="Welcome">
-            
-                    <ul>
-                      <li><a href="#tabs-1">test 1</a></li>
-                      <li><a href="#tabs-2">test 2</a></li>
-                      <li><a href="#tabs-3">test 3</a></li>
-                    </ul>
-                    <div id="tabs-1">
-                        <p>hej</p>
-                    </div>
-                    <div id="tabs-2">
-                    </div>
-                    <div id="tabs-3">
-                    </div>
-            
-        <p>Do whatever you want with this shit, press escape to get rid of me</p>
-    </div>
+  </div>
+
+  <div id="list-creation-dialog" title="Create new list" style="height: 40px">
+    <form>
+      <input type="text" name="title" placeholder="List title" />
+    </form>
+  </div>
+  </div>
+  <div id="dialog" title="Welcome">
+
+    <ul>
+      <li id="tab-header-1" value="paris"><a href="#tabs-1">Paris</a></li>
+      <li id="tab-header-2" value="rome"><a href="#tabs-2">Rome</a></li>
+      <li id="tab-header-3" value="singapore"><a href="#tabs-3">Singapore</a></li>
+      <li id="tab-header-4" value="paris"><a href="#tabs-4">New York</a></li>
+      <div id="tabs-1"></div>
+      <div id="tabs-2"></div>
+      <div id="tabs-3"></div>
+      <div id="tabs-4"></div>
+    </ul>
+    <p>Do whatever you want with this shit, press escape to get rid of me</p>
+  </div>
 </body>
+
 </html>
