@@ -1,11 +1,9 @@
 import $ from 'jquery';
 import dialog from 'jquery-ui/ui/widgets/dialog';
-import tabs from 'jquery-ui/ui/widgets/tabs';
 import 'jquery-ui/themes/base/all.css';
 
-
 require('webpack-jquery-ui');
-import { createDeflate } from 'zlib';
+
 import '../css/styles.css';
 /**
  * jtrello
@@ -14,8 +12,8 @@ import '../css/styles.css';
 
 // Här tillämpar vi mönstret reavealing module pattern:
 // Mer information om det mönstret här: https://bit.ly/1nt5vXP
-const jtrello = (function () {
-  "use strict"; // https://lucybain.com/blog/2014/js-use-strict/
+const jtrello = (function($) {
+  'use strict'; // https://lucybain.com/blog/2014/js-use-strict/
 
   // Referens internt i modulen för DOM element
   let DOM = {};
@@ -36,86 +34,93 @@ const jtrello = (function () {
     DOM.$deleteCardButton = $('.card > button.delete');
   }
   function createTabs() {
-    console.log("IT CHANGES");
-    $("#dialog").tabs();
-    $('[id*=tab-header-]').bind('click', changeBodyImage)
+    $('#dialog').tabs();
   }
 
   function createDialogs() {
-    $("#dialog").dialog({
+    $('#dialog').dialog({
       autoOpen: false,
       show: {
-        effect: "blind",
+        effect: 'blind',
         duration: 300
       },
       hide: {
-        effect: "explode",
+        effect: 'explode',
         duration: 1000
       }
     });
 
-    $("#dialogbutton").on("click", function () {
-      $("#dialog").dialog("open");
+    $('#dialogbutton').on('click', function() {
+      $('#dialog').dialog('open');
     });
-  };
-
-
+  }
 
   /*
-  *  Denna metod kommer nyttja variabeln DOM för att binda eventlyssnare till
-  *  createList, deleteList, createCard och deleteCard etc.
-  */
+   *  Denna metod kommer nyttja variabeln DOM för att binda eventlyssnare till
+   *  createList, deleteList, createCard och deleteCard etc.
+   */
   function bindEvents() {
     DOM.$newListButton.on('click', createList);
     DOM.$deleteListButton.on('click', deleteList);
 
     DOM.$newCardForm.on('submit', createCard);
     DOM.$deleteCardButton.on('click', deleteCard);
+
+    $('#tabs > li > a').on('click', function(event) {
+      $('body').changeBg({ imgName: event.target.dataset.img });
+      $('body').changeBg("destroy");
+    });
   }
 
   /* ============== Metoder för att hantera listor nedan ============== */
   function createList() {
     event.preventDefault();
     dialog('open', DOM.$listDialog);
-  };
-
+  }
 
   function setDate() {
-    $(function () {
-      $(".datepicker").datepicker();
-    });
-  };
-
+    $('.datepicker').datepicker();
+  }
 
   function deleteList() {
-    $(this).closest('.list').remove();
-  };
-
-
+    $(this)
+      .closest('.list')
+      .remove();
+  }
 
   /* =========== Metoder för att hantera kort i listor nedan =========== */
   function createCard(event) {
     event.preventDefault();
-    let addTextToCard = $(this).find('.addText').val();
 
-    $(this).closest('div.list').append($('<li class="card">' + addTextToCard + '<button class="button delete">X</button></li>').on('click', deleteCard)).sortable({
-      connectWith: '.list-cards'
-    });
+    let addTextToCard = $(this)
+      .find('.addText')
+      .val();
 
-  };
+    $(this)
+      .closest('div.list')
+      .append(
+        $(
+          '<li class="card">' +
+            addTextToCard +
+            '<button class="button delete">X</button></li>'
+        ).on('click', deleteCard)
+      )
+      .sortable({
+        connectWith: '.list-cards'
+      });
+  }
   // DOM.$deleteCardButton = $('.card > button.delete');
   function deleteCard() {
-    $(this).closest('.card').remove();
-  };
+    $(this)
+      .closest('.card')
+      .remove();
+  }
 
   function sortCard() {
-    $(".list-cards").sortable({
+    $('.list-cards').sortable({
       connectWith: '.list-cards'
     });
-  };
-
-  // Metod för att rita ut element i DOM:en
-  function render() { }
+  }
 
   /* =================== Publika metoder nedan ================== */
 
@@ -129,20 +134,47 @@ const jtrello = (function () {
     bindEvents();
     sortCard();
     setDate();
-  };
-
-  function changeBodyImage(event) {
-    let imgName = event.target.innerHTML.replace(" ", "").toLowerCase();
-    $('body').css('background-image', `url(/public/assets/images/${imgName}.jpg)`)
   }
+
+  $.widget('philipsAwesomeSauce.changeBg', {
+    options: {
+      imgName: ''
+    },
+
+    _create: function() {
+      this.element.css(
+        'background-image',
+        `url(/assets/images/${this.options.imgName}.jpg)`
+      );
+    },
+
+    _setOption: function(key, value) {
+      switch (key) {
+        default:
+          this.options[ key ] = value;
+          break;
+      }
+
+      $.Widget.prototype._setOption.apply(this, arguments);
+    },
+
+    _destroy: function() {
+
+    },
+
+    _update: function() {
+
+    }
+  });
+
   // All kod här
 
   return {
     init: init
   };
-})();
+})($);
 
 //usage
-$("document").ready(function () {
+$('document').ready(function() {
   jtrello.init();
 });

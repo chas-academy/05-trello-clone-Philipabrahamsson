@@ -3,6 +3,8 @@ const webpack = require('webpack');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+
 const devMode = process.env.NODE_ENV !== 'production'
 
 module.exports = {
@@ -29,14 +31,15 @@ module.exports = {
         loader:"file-loader",
         options:{
           name:'[name].[ext]',
-          outputPath:'public/assets/images/'
+          outputPath:'assets/images/'
         }
       }
     ]
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'src/index.html'
+      template: "./src/index.html",
+      filename: "./index.html"
     }),
     new webpack.ProvidePlugin({
         $: "jquery",
@@ -47,10 +50,16 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: devMode ? 'css/[name].css' : 'css/[name].[hash].css',
       chunkFilename: devMode ? 'css/[id].css' : 'css/[id].[hash].css'
-    })
+    }),
+    new webpack.HotModuleReplacementPlugin(),
+    new CopyWebpackPlugin([
+        { from:'src/assets/images',to:'assets/images' }
+    ]),
   ],
   devServer: {
+    hot: true,
     contentBase: path.join(__dirname, 'public'),
+    publicPath: '/',
     compress: true,
     port: 3000
   }
